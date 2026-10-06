@@ -1,0 +1,11 @@
+# Progreso
+
+## 2026-10-06 · versión 1.1.0 (reorganización, sin cambios funcionales)
+
+**Qué se hizo.** El HTML único de la calculadora (1.0.0, 84 KB) se separó en un sitio estático: `index.html` con el marcado y el orden de carga, `css/estilos.css`, y 20 archivos en `js/` por responsabilidad: `datos/` (tablas de roscas, clases, materiales y lubricación), `nucleo/` (constantes, formato, geometría, validación, barrido, apoyo, cálculo y alertas, todo sin DOM), `ui/` (ayudas de DOM, formulario, tarjetas, resultados, guía y controlador), `guarda.js` y `arranque.js`. Las pruebas pasaron a `tests/` y la 1.0.0 quedó en `versiones/torque-apriete_v1.html`.
+
+**Qué se decidió y por qué.** Mismo criterio que Atlas Estructuras 3D: scripts clásicos con un espacio de nombres único (`Torque`) y no módulos ES, para que siga abriendo con doble clic por `file://`; sin generar un HTML único; versiones nuevas con etiquetas de git. El cálculo se partió de una función grande en validación, barrido, apoyo y orquestación para que cada pieza tenga una sola responsabilidad. El `<head>` no lleva política de seguridad (`Content-Security-Policy`) porque no se pudo verificar que `script-src 'self'` funcione por `file://` fuera de Chromium; en su lugar el código no usa estilos ni scripts en línea y la prueba de pantalla corre el sitio por http con la política estricta. El aviso de carga no puede escuchar el error de descarga de los estilos (se piden antes de que corra), así que comprueba el resultado: que la variable `--ac` de `estilos.css` esté aplicada. Esto cubre el caso que dejó a Atlas sin formato y sin aviso.
+
+**Cómo se comprobó.** El núcleo nuevo y el del archivo único dan resultados idénticos (comparación exacta) en 654.667 casos: todas las combinaciones principales, 60.000 aleatorios y 20.000 entradas basura. La interfaz nueva y la 1.0.0 dan el mismo DOM en 110 pasos de uso, por `file://` y por http, sin errores de consola. Unitarias (197), contraste con una segunda implementación en Python (1.500 casos) y prueba de pantalla (61, con aviso de carga verificado rompiendo el guarda a propósito).
+
+**Qué sigue.** Subir a GitHub y activar Pages; cotejar con tablas propias las constantes de criterio (corte 0,6·Rm, factor 0,8, seguridad 1,5, presiones bajo cabeza, engranes prácticos); definir la licencia.

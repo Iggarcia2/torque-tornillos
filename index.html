@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>Torque de apriete de tornillos</title>
+<link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+<header class="cab">
+  <div class="cab-in">
+    <svg class="logo" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M14 6h20v8H14z"/><path d="M18 14v26M30 14v26"/><path d="M18 20l12-3M18 26l12-3M18 32l12-3M18 38l12-3"/><path d="M24 40v4"/>
+    </svg>
+    <div>
+      <h1>Torque de apriete de tornillos</h1>
+      <p class="sub">Uniones atornilladas · ISO 898-1 · SAE J429 · modelo T = K·D·Fi (VDI 2230 simplificado)</p>
+    </div>
+  </div>
+</header>
+
+<main class="cont">
+  <div class="entradas">
+
+    <section class="card" aria-labelledby="h1">
+      <h2 id="h1"><span class="num">1</span>Tornillo</h2>
+      <div class="fila2 stack">
+        <div class="campo"><label for="sistema">Sistema de rosca</label>
+          <select id="sistema"><option value="metrica">Métrica (ISO)</option><option value="unificada">Unificada (UNC / UNF)</option></select></div>
+        <div class="campo"><label for="serie">Serie</label><select id="serie"></select></div>
+      </div>
+      <div class="campo"><label for="tamano">Diámetro nominal y paso</label><select id="tamano"></select></div>
+      <div class="fila2" id="personal" hidden>
+        <div class="campo"><label for="pD" id="lblD">Diámetro nominal D (mm)</label>
+          <input id="pD" type="text" inputmode="decimal" autocomplete="off"></div>
+        <div class="campo"><label for="pP" id="lblP">Paso P (mm)</label>
+          <input id="pP" type="text" inputmode="decimal" autocomplete="off"></div>
+      </div>
+      <div class="campo"><label for="clase">Clase de resistencia</label><select id="clase"></select></div>
+      <dl class="datos" id="datosTornillo"></dl>
+    </section>
+
+    <section class="card" aria-labelledby="h2">
+      <h2 id="h2"><span class="num">2</span>Alojamiento (rosca interior)</h2>
+      <div class="campo"><label for="material">Material del alojamiento</label><select id="material"></select></div>
+      <div class="campo" id="campoRm" hidden><label for="rmMat">Resistencia a tracción Rm del material (MPa)</label>
+        <input id="rmMat" type="text" inputmode="decimal" autocomplete="off" value="300"></div>
+      <div class="campo"><label for="le">Longitud de engrane de la rosca</label>
+        <div class="grupo">
+          <input id="le" type="text" inputmode="decimal" autocomplete="off" aria-describedby="leHint">
+          <select id="leUnidad" aria-label="Unidad de la longitud de engrane"><option value="mm">mm</option><option value="in">pulg</option></select>
+        </div>
+        <div class="chips" id="chipsLe" role="group" aria-label="Atajos de longitud de engrane"></div>
+        <p class="hint" id="leHint"></p>
+      </div>
+      <label class="check"><input type="checkbox" id="arandela"><span>Arandela plana de acero bajo la cabeza (reparte la presión sobre el alojamiento)</span></label>
+    </section>
+
+    <section class="card" aria-labelledby="h3">
+      <h2 id="h3"><span class="num">3</span>Lubricación y acabado</h2>
+      <div class="campo"><label for="lub">Estado de la rosca</label><select id="lub"></select></div>
+      <p class="kinfo" id="kInfo"></p>
+    </section>
+
+    <section class="card" aria-labelledby="h4">
+      <h2 id="h4"><span class="num">4</span>Precarga objetivo</h2>
+      <label for="pctNum" id="lblPct">Precarga objetivo (% del proof load Sp)</label>
+      <div class="pct">
+        <input type="range" id="pctRng" min="10" max="100" step="1" value="75" aria-label="Precarga objetivo, control deslizante">
+        <div class="pctnum"><input id="pctNum" type="text" inputmode="numeric" autocomplete="off" value="75" aria-describedby="pctHint"><span>%</span></div>
+      </div>
+      <div class="chips" id="chipsPct" role="group" aria-label="Atajos de precarga"></div>
+      <p class="hint sep" id="pctHint"></p>
+    </section>
+
+  </div>
+
+  <div class="resultados" id="res" aria-live="polite"></div>
+</main>
+
+<section class="guia" aria-labelledby="hg">
+  <div class="card" id="guia"></div>
+</section>
+
+<p class="pie">Herramienta de estimación para predimensionado y chequeos rápidos. Los coeficientes de fricción son valores típicos con una dispersión real de ±25 % o más: en uniones críticas (seguridad, fatiga, presión, juntas) verificá con VDI 2230 completo y ensayos de torque-tensión sobre los componentes reales.</p>
+
+<div class="barra" id="barra" role="status"></div>
+<noscript><p class="sinjs">Esta calculadora necesita JavaScript activado.</p></noscript>
+<!-- Orden de carga: única fuente de verdad. Los tests lo leen de acá. Scripts clásicos: comparten el espacio de nombres Torque. -->
+<script src="js/guarda.js"></script>
+<script src="js/nucleo/constantes.js"></script>
+<script src="js/nucleo/formato.js"></script>
+<script src="js/datos/roscas.js"></script>
+<script src="js/datos/clases.js"></script>
+<script src="js/datos/materiales.js"></script>
+<script src="js/datos/lubricaciones.js"></script>
+<script src="js/nucleo/geometria.js"></script>
+<script src="js/nucleo/validacion.js"></script>
+<script src="js/nucleo/barrido.js"></script>
+<script src="js/nucleo/apoyo.js"></script>
+<script src="js/nucleo/calculo.js"></script>
+<script src="js/nucleo/alertas.js"></script>
+<script src="js/ui/dom.js"></script>
+<script src="js/ui/formulario.js"></script>
+<script src="js/ui/tarjetas.js"></script>
+<script src="js/ui/resultados.js"></script>
+<script src="js/ui/guia.js"></script>
+<script src="js/ui/eventos.js"></script>
+<script src="js/arranque.js"></script>
+</body>
+</html>

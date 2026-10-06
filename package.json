@@ -1,0 +1,12 @@
+{
+  "name": "torque-tornillos",
+  "version": "1.1.0",
+  "private": true,
+  "description": "Calculadora de torque de apriete de tornillos (ISO 898-1 / SAE J429, T = K·D·Fi) con verificación de barrido de rosca y presión bajo la cabeza. Sitio estático.",
+  "scripts": {
+    "test": "node tests/correr_todo.js",
+    "test:pantalla": "node tests/correr_todo.js --e2e"
+  },
+  "engines": { "node": ">=18" },
+  "devDependencies": { "playwright": "^1.56.0" }
+}

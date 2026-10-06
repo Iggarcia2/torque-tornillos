@@ -1,0 +1,21 @@
+{
+  "proyecto": "torque-tornillos",
+  "version": "1.1.0",
+  "fecha": "2026-10-06",
+  "archivo_principal": "index.html",
+  "ultima_version_archivada": "versiones/torque-apriete_v1.html",
+  "verificacion": {
+    "unitarias_nucleo": "197 OK",
+    "contraste_python": "1500 casos, error relativo máx. 2,2e-7",
+    "pantalla": "61 OK (file://, http con política de seguridad estricta, aviso de carga)",
+    "equivalencia_con_v1": "nucleo: 654.667 comparaciones sin diferencias; interfaz: 110 fotos del DOM idénticas por file:// y http"
+  },
+  "tareas": [
+    { "id": 1, "titulo": "Calculadora de torque en un solo HTML (v1.0.0)", "estado": "hecha" },
+    { "id": 2, "titulo": "Separar en sitio estático: datos, núcleo de cálculo, interfaz, estilos", "estado": "hecha" },
+    { "id": 3, "titulo": "Aviso de carga que detecta también estilos faltantes", "estado": "hecha" },
+    { "id": 4, "titulo": "Subir el repositorio a GitHub y activar Pages", "estado": "pendiente" },
+    { "id": 5, "titulo": "Cotejar las constantes de criterio (barrido, presión bajo cabeza, engranes prácticos) con las propias tablas", "estado": "pendiente" },
+    { "id": 6, "titulo": "Definir la licencia del repositorio público", "estado": "pendiente" }
+  ]
+}
